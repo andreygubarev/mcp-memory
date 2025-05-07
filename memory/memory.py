@@ -1,6 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 
-from .mem.database import Database
+from .database import Database
 
 mcp = FastMCP("Memory")
 db = Database()
