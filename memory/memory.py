@@ -2,7 +2,19 @@ from mcp.server.fastmcp import FastMCP
 
 from .database import Database
 
-mcp = FastMCP("Memory")
+mcp = FastMCP(
+    name="Long-Term Memory",
+    instructions="""
+    This service manages the AI's persistent memory system. It allows storing and retrieving information across conversations and sessions.
+
+    Use this service when you need to:
+    - Store important information the AI should remember for future interactions
+    - Retrieve previously stored memories that are relevant to the current conversation
+
+    The memory system uses semantic search to find relevant information based on meaning,
+    not just keywords. Information stored here persists beyond the current session.
+    """
+)
 db = Database()
 
 
