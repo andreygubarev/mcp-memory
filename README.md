@@ -8,7 +8,7 @@
     "memory": {
       "command": "uvx",
       "args": [
-        "/Users/andrey/Workspace/Development/adaptivegears.studio/mcp-memory"
+        "mcp-memory"
       ]
     }
   }
