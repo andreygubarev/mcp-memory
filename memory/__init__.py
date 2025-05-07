@@ -1,6 +1,15 @@
-def main():
-    print("Hello from mcp-memory!")
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("Memory")
 
 
-if __name__ == "__main__":
-    main()
+@mcp.tool()
+def add(a: int, b: int) -> int:
+    """Add two numbers"""
+    return a + b
+
+
+@mcp.resource("greeting://{name}")
+def get_greeting(name: str) -> str:
+    """Get a personalized greeting"""
+    return f"Hello, {name}!"
