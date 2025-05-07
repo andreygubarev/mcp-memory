@@ -1,7 +1,19 @@
 from mcp.server.fastmcp import FastMCP
+from mcp.server.session import ServerSession
 
 from .database import Database
 
+
+received_request = ServerSession._received_request
+
+async def _received_request(self, *args, **kwargs):
+    try:
+        return await received_request(self, *args, **kwargs)
+    except RuntimeError:
+        pass
+
+
+ServerSession._received_request = _received_request
 mcp = FastMCP(
     name="Long-Term Memory",
     instructions="""
@@ -13,9 +25,11 @@ mcp = FastMCP(
 
     The memory system uses semantic search to find relevant information based on meaning,
     not just keywords. Information stored here persists beyond the current session.
-    """
+    """,
+    dependencies=[
+        "chromadb",
+    ],
 )
-db = Database()
 
 
 @mcp.tool()
@@ -52,7 +66,7 @@ def memorize(content: str, description: str | None = None) -> bool:
     else:
         memory_text = content
 
-    db.memorize(memory_text)
+    Database().memorize(memory_text)
     return True
 
 
@@ -86,5 +100,5 @@ def recall(query: str, limit: int = 10) -> list:
     >>> recall("meeting schedule", limit=5)
     ['Weekly team meeting every Monday at 10am', 'Project deadline meeting scheduled for June 15']
     """
-    memories = db.recall(query, n_results=limit)
+    memories = Database().recall(query, n_results=limit)
     return memories
