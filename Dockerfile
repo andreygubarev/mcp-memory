@@ -14,11 +14,6 @@ LABEL org.opencontainers.image.title="mcp-remote-memory"
 LABEL org.opencontainers.image.description=""
 LABEL org.opencontainers.image.authors="Andrey Gubarev"
 
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -yq --no-install-recommends \
-    tini \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY --from=build /root/.local /root/.local
 COPY chroma /root/.cache/chroma
 
@@ -29,5 +24,4 @@ ENV ANONYMIZED_TELEMETRY=False
 ENV CHROMADB_DATABASE=/data
 VOLUME ["/data"]
 EXPOSE 8000
-COPY --chown=root:root --chmod=0755 docker-entrypoint.sh /docker-entrypoint.sh
-ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
+CMD ["mcp-memory"]
