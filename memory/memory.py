@@ -1,15 +1,23 @@
 from mcp.server.fastmcp import FastMCP
 
+from .mem.database import Database
+
 mcp = FastMCP("Memory")
+db = Database()
 
 
 @mcp.tool()
-def add(a: int, b: int) -> int:
-    """Add two numbers"""
-    return a + b
+def memorize(text: str) -> str:
+    """Memorize a text"""
+    db.memorize(text)
+    return "Text memorized!"
 
 
-@mcp.resource("greeting://{name}")
-def get_greeting(name: str) -> str:
-    """Get a personalized greeting"""
-    return f"Hello, {name}!"
+@mcp.tool()
+def recall(query: str, n_results: int = 1):
+    """Recall a text"""
+    results = db.recall(query, n_results)
+    if not results:
+        return "No results found."
+
+    return results
