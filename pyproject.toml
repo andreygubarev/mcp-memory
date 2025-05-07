@@ -1,10 +1,10 @@
 [project]
 name = "mcp-memory"
-version = "0.1.0"
 description = "MCP Memory based on ChromaDB"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = ["chromadb>=1.0.8", "mcp[cli]>=1.7.1"]
+dynamic = ["version"]
 
 [project.scripts]
 mcp-memory = "memory.main:main"
