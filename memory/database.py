@@ -21,7 +21,7 @@ class Database:
             ids=[id]
         )
 
-    def recall(self, query: str, n_results: int = 1):
+    def recall(self, query: str, n_results: int = 1) -> list:
         results = self.collection.query(
             query_texts=[query],
             n_results=n_results,
@@ -29,4 +29,4 @@ class Database:
         if not results['documents']:
             return []
 
-        return results
+        return [d for docs in results['documents'] for d in docs if d is not None]
