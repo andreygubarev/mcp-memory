@@ -1,9 +1,17 @@
+import os
 import hashlib
 import chromadb
 
+DATABASE = os.getenv("CHROMADB_DATABASE")
+
 class Database:
     def __init__(self):
-        self.client = chromadb.Client()
+        if DATABASE:
+            if not os.path.exists(DATABASE):
+                raise ValueError(f"Database path {DATABASE} does not exist.")
+            self.client = chromadb.PersistentClient(path=DATABASE)
+        else:
+            self.client = chromadb.Client()
         self.collection = self.client.get_or_create_collection("memory")
 
     def memorize(self, text: str):
