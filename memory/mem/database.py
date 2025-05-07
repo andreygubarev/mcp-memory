@@ -16,9 +16,9 @@ class Database:
     def recall(self, query: str, n_results: int = 1):
         results = self.collection.query(
             query_texts=[query],
-            n_results=1
+            n_results=n_results,
         )
         if not results['documents']:
             return []
 
-        return results['documents']
+        return results
