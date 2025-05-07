@@ -2,7 +2,7 @@ import os
 import hashlib
 import chromadb
 
-DATABASE = os.getenv("CHROMADB_DATABASE", "/data")
+DATABASE = os.getenv("CHROMADB_DATABASE")
 
 class Database:
     def __init__(self):

@@ -26,6 +26,7 @@ ENV PATH="/root/.local/bin:${PATH}"
 ENV MCP_PROXY_SSE_HOST=0.0.0.0
 ENV MCP_PROXY_SSE_PORT=8080
 ENV ANONYMIZED_TELEMETRY=False
+ENV CHROMADB_DATABASE=/data
 VOLUME ["/data"]
 COPY --chown=root:root --chmod=0755 docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
